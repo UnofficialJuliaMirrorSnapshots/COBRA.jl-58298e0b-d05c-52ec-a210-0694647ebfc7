@@ -138,7 +138,11 @@ end
 # remove the results folder to clean up
 tmpDir = joinpath(dirname(@__FILE__), "..", "results")
 if isdir(tmpDir)
-    rm(tmpDir, recursive=true)
+    try
+        rm("$tmpDir", recursive=true, force=true)
+    catch
+        info("The directory $tmpDir cannot be removed. Please check permissions.\n")
+    end
 end
 
 # print a status line
